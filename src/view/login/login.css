@@ -1,0 +1,25 @@
+.login {
+  background-color: #1867bb;
+  width: 100%;
+  height: 100vh;
+}
+
+.login_content {
+  width: auto;
+}
+
+.login_content input {
+  min-width: 300px;
+}
+.br {
+  color: #ffffff;
+  border: 1px solid#ffffff !important;
+}
+a {
+  text-decoration: none;
+}
+
+.pcao a {
+  color: #ffffff;
+  text-decoration: none;
+}
