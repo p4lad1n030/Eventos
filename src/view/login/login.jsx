@@ -66,19 +66,18 @@ const Login = () => {
   }
 
   return (
-    <div className="login d-flex align-items-center justify-content-center  flex-column">
-      <h1 className="text-center text-white">Acesse para continuar</h1>
+    <div className="login d-flex align-items-center justify-content-center  flex-column p-2">
       <h4 className="font-weight-light font-italic text-center text-white">
         bem vindo
       </h4>
+      <h1 className="text-center text-white ">Acesse para continuar</h1>
       <form
         onSubmit={reset}
-        className="login_content d-flex flex-column"
+        className="login_content d-flex flex-column my-3"
         id="authForm"
       >
         <input
           type="email"
-          id="inputEmail"
           className="form-control mb-2"
           placeholder="Seu Email"
           value={email}
@@ -86,7 +85,6 @@ const Login = () => {
         />
         <input
           type="password"
-          id="inputPassword"
           className="form-control mb-2"
           placeholder="Sua Senha"
           value={pass}
@@ -118,16 +116,16 @@ const Login = () => {
             <p className="font-weight-bold text-white mt-2">{userMsg}</p>
           )}
         </div>
-        <div className="pcao my-4 d-flex justify-content-around w-100">
-          <small className=" mr-2">
-            <a href="#" className="">
+        <div className="pcao my-4 ">
+          <small className=" ">
+            <Link className="nav-link" to="/#">
               Esqueceu a senha?
-            </a>
+            </Link>
           </small>
-          <span className="text-white rounded-circle border border-white">
+          <span className="text-white rounded-circle border border-white mx-5">
             &#127758;
           </span>
-          <small className="ml-2">
+          <small className="">
             <Link className="nav-link" to="/cadastro">
               Quero me cadastrar!
             </Link>

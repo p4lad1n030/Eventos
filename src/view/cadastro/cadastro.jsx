@@ -121,7 +121,7 @@ const Cadastrar = () => {
         </div>
         <div className="pcao my-4 d-flex justify-content-around w-100">
           <small className="ml-2">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/login">
               Ja tem uma conta?
             </Link>
           </small>
