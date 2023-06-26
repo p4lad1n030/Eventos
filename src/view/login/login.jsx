@@ -10,15 +10,20 @@ import {
 import { auth } from "../../config/firebaseConfig";
 import { SpinnerRoundOutlined } from "spinners-react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logIn } from "../../store/actions/userActions";
 
-const Login = () => {
+const Login = (props) => {
   // variaveis de estado dos campos email e senha
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [successLogin, setSuccessLogin] = useState("");
   const [userMsg, setUserMsg] = useState("");
   const [loading, setLoading] = useState();
-
+  const uEmail = props.userEmail;
+  const userL = props.userLogin;
+  const state = props.changeState
+  
   const errorCase = (er) => {
     switch (er) {
       case "auth/invalid-email":
@@ -51,8 +56,7 @@ const Login = () => {
         setSuccessLogin("sucesso");
         const user = userCredential.user;
         console.log(user.uid);
-
-        // alert(`logou  bem vindo ${user}`);
+        state({type:'LOG_IN', userEmail:email})
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -67,6 +71,13 @@ const Login = () => {
 
   return (
     <div className="login d-flex align-items-center justify-content-center  flex-column p-2">
+      {
+        //  setTimeout(function() {
+        //   userL > 0 ? <RedirectFunction to='/'/> : null
+        //  }, 2000)
+      }
+      <h1 className="text-center">{uEmail}</h1>
+      <h1 className="text-center">{userL}</h1>
       <h4 className="font-weight-light font-italic text-center text-white">
         bem vindo
       </h4>
@@ -74,8 +85,7 @@ const Login = () => {
       <form
         onSubmit={reset}
         className="login_content d-flex flex-column my-3"
-        id="authForm"
-      >
+        id="authForm">
         <input
           type="email"
           className="form-control mb-2"
@@ -100,8 +110,7 @@ const Login = () => {
           <button
             className="btn btn-lg br btn-outline-success btn-block mb-2"
             type="submit"
-            onClick={logIn}
-          >
+            onClick={logIn}>
             Entrar
           </button>
         )}
@@ -136,4 +145,18 @@ const Login = () => {
   );
 };
 
-export default Login;
+function mapStateToProps(state) {
+  return {
+    userEmail: state.isLog.userEmail,
+    userLogin: state.isLog.userLogin,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+     changeState(newState) {
+      const action = logIn(newState)
+      dispatch(action)
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

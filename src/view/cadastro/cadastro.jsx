@@ -1,11 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
 import "./cadastro.css";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
 import { SpinnerRoundOutlined } from "spinners-react";
 import { Link } from "react-router-dom";
-
+import Menu from "../../components/Header/Navbar/Menu";
 const Cadastrar = () => {
   // variaveis de estado dos campos email e senha
   const [email, setEmail] = useState("");
@@ -13,6 +15,8 @@ const Cadastrar = () => {
   const [msgType, setMsgType] = useState("");
   const [userMsg, setUserMsg] = useState("");
   const [loading, setLoading] = useState();
+  const dispatch = useDispatch()
+
   // const [progress, setProgress] = useState();
 
   const errorCase = (er) => {
@@ -56,6 +60,8 @@ const Cadastrar = () => {
         console.log(user);
         setMsgType("sucesso");
         setUserMsg("Usuário cadastrado com sucesso!");
+        dispatch({type:'LOG_IN', userEmail:email})
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -69,65 +75,68 @@ const Cadastrar = () => {
   }
 
   return (
-    <div className="cadastro d-flex align-items-center justify-content-center  flex-column">
-      <span className="text-white i rounded-circle border border-white my-5">
-        &#127758;
-      </span>
+    <>
+      <Menu/>
+      <div className="cadastro d-flex align-items-center justify-content-center  flex-column">
+        <span className="text-white i rounded-circle border border-white my-5">
+          &#127758;
+        </span>
 
-      <form
-        onSubmit={reset}
-        className="cadastro_content d-flex flex-column"
-        id="authForm"
-      >
-        <input
-          type="email"
-          id="inputEmail"
-          className="form-control mb-2"
-          placeholder="Seu Email"
-          value={email}
-          onInput={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          id="inputPassword"
-          className="form-control mb-2"
-          placeholder="Sua Senha"
-          value={pass}
-          onInput={(e) => setPass(e.target.value)}
-        />
-        {loading ? (
-          <SpinnerRoundOutlined
-            style={{
-              margin: "auto",
-            }}
+        <form
+          onSubmit={reset}
+          className="cadastro_content d-flex flex-column"
+          id="authForm"
+        >
+          <input
+            type="email"
+            id="inputEmail"
+            className="form-control mb-2"
+            placeholder="Seu Email"
+            value={email}
+            onInput={(e) => setEmail(e.target.value)}
           />
-        ) : (
-          <button
-            className="btn btn-lg br btn-outline-success btn-block mb-2"
-            type="submit"
-            onClick={criarusuario}
-          >
-            Cadastrar
-          </button>
-        )}
+          <input
+            type="password"
+            id="inputPassword"
+            className="form-control mb-2"
+            placeholder="Sua Senha"
+            value={pass}
+            onInput={(e) => setPass(e.target.value)}
+          />
+          {loading ? (
+            <SpinnerRoundOutlined
+              style={{
+                margin: "auto",
+              }}
+            />
+          ) : (
+            <button
+              className="btn btn-lg br btn-outline-success btn-block mb-2"
+              type="submit"
+              onClick={criarusuario}
+            >
+              Cadastrar
+            </button>
+          )}
 
-        <div className="text-center ">
-          {msgType === "sucesso" && (
-            <p className="font-weight-bold text-white mt-2">{userMsg}</p>
-          )}
-          {msgType === "error" && (
-            <p className="font-weight-bold text-white mt-2">{userMsg}</p>
-          )}
-        </div>
-        <div className="pcao my-4 d-flex justify-content-around w-100">
-          <small className="ml-2">
-            <Link className="nav-link" to="/login">
-              Ja tem uma conta?
-            </Link>
-          </small>
-        </div>
-      </form>
-    </div>
+          <div className="text-center ">
+            {msgType === "sucesso" && (
+              <p className="font-weight-bold text-white mt-2">{userMsg}</p>
+            )}
+            {msgType === "error" && (
+              <p className="font-weight-bold text-white mt-2">{userMsg}</p>
+            )}
+          </div>
+          <div className="pcao my-4 d-flex justify-content-around w-100">
+            <small className="ml-2">
+              <Link className="nav-link" to="/login">
+                Ja tem uma conta?
+              </Link>
+            </small>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

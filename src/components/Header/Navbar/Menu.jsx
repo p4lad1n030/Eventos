@@ -6,7 +6,7 @@ const Menu = () => {
   return (
     <nav className="navbar navbar-expand-md bg-blue navbar-dark">
       {/* Brand */}
-      <pa className="navbar-brand">Eventos</pa>
+      <Link className="navbar-brand" to='/'>Eventos</Link>
 
       {/* Toggler/collapsibe Button */}
       <button
