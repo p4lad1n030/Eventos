@@ -35,17 +35,13 @@ const Cadastrar = (props) => {
           state({ type: 'LOG_IN', userEmail: email });
         }, 700);
       })
-      .catch((error) => {
+      .catch((error) => { 
         const errorCode = error.code;
         setLoading(0);
         setMsgType('error');
         errorCase(errorCode, setUserMsg);
         console.log(error.message);
       })
-      .finally((error) => {
-        const errorCode = error.code;
-        errorCase(errorCode, setUserMsg);
-      });
   }
 
   return (

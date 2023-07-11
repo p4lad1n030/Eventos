@@ -3,12 +3,15 @@ import './menu.css';
 import { Link } from 'react-router-dom';
 import { logOut } from '../../../store/actions/userActions';
 import { connect } from 'react-redux';
+import { signOut } from "firebase/auth";
+import { auth } from '../../../config/firebaseConfig';
 
 const Menu = (props) => {
   const userL = props.userLogin;
   const state = props.changeState;
   function logout() {
     state({ type: 'LOG_OUT' });
+    signOut(auth)
   }
   return (
     <nav className='navbar navbar-expand-md bg-blue navbar-dark'>
@@ -55,7 +58,7 @@ const Menu = (props) => {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='#'>
+                <Link className='nav-link' to='/meuseventos'>
                   Meus Eventos
                 </Link>
               </li>
